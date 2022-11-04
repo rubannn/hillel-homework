@@ -5,11 +5,12 @@ import time
 
 app = Flask(__name__)
 
-start_url = "<br><br><a href='/'>start page</a>"
+start_url = "<br><br><a href='/'>main page</a>"
 
 @app.route("/")
 def hello_world():
     return '''
+        <h2>main page</h2>
         <ul>
             <li><a href="/whoami">whoami</a></li>
             <li><a href="/source_code">source_code</a></li>
@@ -65,13 +66,17 @@ def gen_random(length = 0, specials = 0, digits = 0):
             <p>Random string: {rnd_string}</p>
         '''
     else:
-        res = '''
+        res = f'''
             <h2>random</h2>
             <p>Wrong params!!!</p>
-            <p>Params must be: [length in [1..100], specials in {0, 1}, digits in {0, 1}]</p>            
+            <p>Params must be: [length in [1..100], specials in {{0, 1}}, digits in {{0, 1}}]</p>
+            <p>Current params: [{length=}, {specials=}, {digits=}]</p>            
         '''
-
     return res + start_url
 
+# in terminal
 # flask --app main run
 # flask --app main --debug run
+
+if __name__ == '__main__':
+    app.run(debug=True)
